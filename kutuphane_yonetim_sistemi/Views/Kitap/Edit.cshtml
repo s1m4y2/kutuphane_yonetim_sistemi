@@ -1,0 +1,48 @@
+﻿@model kutuphane_yonetim_sistemi.Models.Kitap
+
+@{
+    ViewData["Title"] = "Kitap Düzenle";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" name="KitapId" value="@Model.KitapId" />
+
+    <div class="form-group">
+        <label for="Baslik">Kitap Başlığı</label>
+        <input type="text" class="form-control" id="Baslik" name="Baslik" value="@Model.Baslik" required />
+    </div>
+
+    <div class="form-group">
+        <label for="KategoriId">Kategori</label>
+        <select class="form-control" id="KategoriId" name="KategoriId" required>
+            @foreach (var kategori in ViewBag.Kategoriler as SelectList)
+            {
+                <option value="@kategori.Value" selected="@(kategori.Value == Model.KategoriId.ToString())">@kategori.Text</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="YazarId">Yazar</label>
+        <select class="form-control" id="YazarId" name="YazarId" required>
+            @foreach (var yazar in ViewBag.Yazarlar as SelectList)
+            {
+                <option value="@yazar.Value" selected="@(yazar.Value == Model.YazarId.ToString())">@yazar.Text</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="YayineviId">Yayınevi</label>
+        <select class="form-control" id="YayineviId" name="YayineviId" required>
+            @foreach (var yayinevi in ViewBag.Yayinevleri as SelectList)
+            {
+                <option value="@yayinevi.Value" selected="@(yayinevi.Value == Model.YayineviId.ToString())">@yayinevi.Text</option>
+            }
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-warning">Güncelle</button>
+</form>

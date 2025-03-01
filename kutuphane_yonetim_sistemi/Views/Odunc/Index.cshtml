@@ -1,0 +1,34 @@
+﻿@model IEnumerable<kutuphane_yonetim_sistemi.Models.Odunc> 
+
+<h2>Ödünç Alınan Kitaplar</h2>
+<p>Ödünç alınan kitap sayısı: @ViewBag.BorrowedBooksCount</p>
+
+
+@if (Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Kitap Adı</th>
+                <th>Kullanıcı</th>
+                <th>Ödünç Alma Tarihi</th>
+                <th>İade Tarihi</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Kitap.Baslik</td>
+                    <td>@item.Kullanici.UserName</td>
+                    <td>@item.AlisTarihi.ToString("yyyy-MM-dd")</td>
+                    <td>@(item.IadeTarihi?.ToString("yyyy-MM-dd") ?? "Henüz İade Edilmedi")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Henüz ödünç alınmış kitap yok.</p>  <!-- Kullanıcı hiç kitap ödünç almadıysa bu mesaj görünür -->
+}

@@ -1,0 +1,97 @@
+﻿@{
+    ViewData["Title"] = "Kitap Listesi";
+    var oduncKitaplar = ViewData["OduncKitaplar"] as List<int>;
+    var bookCountByCategory = ViewBag.BookCountByCategory as Dictionary<string, int>;
+}
+
+
+<h2>@ViewData["Title"]</h2>
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Message"]
+    </div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+
+<h3>Toplam Kitap Sayısı: @ViewBag.TotalBooks</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Kategori</th>
+            <th>Kitap Sayısı</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var category in bookCountByCategory)
+        {
+            <tr>
+                <td>@category.Key</td>
+                <td>@category.Value</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Kitap Adı</th>
+            <th>Yazar</th>
+            <th>Kategori</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var kitap in Model)
+        {
+            <tr>
+                <td>@kitap.Baslik</td>
+                <td>@kitap.Yazar.AdSoyad</td>
+                <td>@kitap.Kategori.Ad</td>
+                <td>@kitap.Yayinevi.Ad</td>
+                @if (kitap.KullaniciId == User.Identity.Name)
+                {
+                    <td>
+                        <a href="@Url.Action("Edit", "Kitap", new { id = kitap.KitapId })">Düzenle</a> |
+                        <a href="@Url.Action("Delete", "Kitap", new { id = kitap.KitapId })" class="btn btn-danger" onclick="return confirm('Bu kitabı silmek istediğinizden emin misiniz?');">Sil</a>
+                    </td>
+                }
+
+                @if (kitap.KullaniciId == User.Identity.Name)
+                {
+                    <td>Sahibim</td>
+                }
+                else if (oduncKitaplar.Contains(kitap.KitapId))
+                {
+                    <td>
+                        <!-- Eğer kitap ödünç alındıysa, "İade Et" butonu gösterilir -->
+                        <form method="post" asp-action="IadeEt" asp-controller="Odunc">
+                            <input type="hidden" name="KitapId" value="@kitap.KitapId" />
+                            <button type="submit" class="btn btn-danger">İade Et</button>
+                        </form>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <!-- Eğer kitap ödünç alınmamışsa, "Ödünç Al" butonu gösterilir -->
+                        <form method="post" asp-action="OduncAl" asp-controller="Odunc">
+                            <input type="hidden" name="KitapId" value="@kitap.KitapId" />
+                            <button type="submit" class="btn btn-primary">Ödünç Al</button>
+                        </form>
+                    </td>
+                }
+
+
+            </tr>
+        }
+    </tbody>
+</table>
+<a href="@Url.Action("Create", "Kitap")" class="btn btn-primary">Yeni Kitap Ekle</a>

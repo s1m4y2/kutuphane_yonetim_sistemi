@@ -1,0 +1,17 @@
+﻿@model kutuphane_yonetim_sistemi.Models.Kitap
+@{
+    ViewData["Title"] = "Kitap Sil";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>Bu kitabı silmek istediğinizden emin misiniz?</p>
+
+<div>
+    <h4>@Model.Baslik</h4>
+    <form asp-action="Delete" method="post">
+        <input type="hidden" name="KitapId" value="@Model.KitapId" />
+        <button type="submit" class="btn btn-danger">Sil</button>
+        <a href="@Url.Action("Index", "Kitap")" class="btn btn-secondary">Vazgeç</a>
+    </form>
+</div>

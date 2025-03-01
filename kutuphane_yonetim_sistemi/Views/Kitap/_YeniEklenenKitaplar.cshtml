@@ -1,0 +1,11 @@
+﻿@model IEnumerable<kutuphane_yonetim_sistemi.Models.Kitap>
+
+<h4>Yeni Eklenen Kitaplar</h4>
+<ul>
+    @foreach (var kitap in Model)
+    {
+        <li>
+            <strong>@kitap.Baslik</strong> - @kitap.Yazar.AdSoyad
+        </li>
+    }
+</ul>

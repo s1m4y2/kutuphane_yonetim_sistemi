@@ -1,0 +1,9 @@
+﻿@model IEnumerable<kutuphane_yonetim_sistemi.Models.Odunc>
+
+<h2>Ödünç Alınanlar</h2>
+<ul>
+    @foreach (var odunc in Model)
+    {
+        <li>@odunc.Kitap.Baslik</li>
+    }
+</ul>

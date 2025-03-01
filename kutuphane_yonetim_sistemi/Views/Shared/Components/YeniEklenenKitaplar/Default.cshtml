@@ -1,0 +1,21 @@
+﻿@model IEnumerable<kutuphane_yonetim_sistemi.Models.Kitap>
+
+<ul class="list-group">
+    @foreach (var kitap in Model)
+    {
+        <li class="list-group-item">
+            <strong>@kitap.Baslik</strong> -
+            @if (kitap.Yazar != null)
+            {
+                @kitap.Yazar.AdSoyad
+            }
+            else
+            {
+                <span>Yazar bilgisi yok</span>
+            }
+            (@kitap.Yayinevi.Ad)
+        </li>
+    }
+</ul>
+
+

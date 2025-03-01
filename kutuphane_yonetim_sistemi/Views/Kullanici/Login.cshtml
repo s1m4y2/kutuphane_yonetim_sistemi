@@ -1,0 +1,41 @@
+﻿@model kutuphane_yonetim_sistemi.Models.Kullanici
+
+@{
+    ViewData["Title"] = "Giriş Yap";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form id="loginForm" method="post">
+    <div class="form-group">
+        <label for="Email">E-posta</label>
+        <input type="email" class="form-control" id="Email" name="Email" required />
+    </div>
+    <div class="form-group">
+        <label for="Password">Şifre</label>
+        <input type="password" class="form-control" id="Password" name="Password" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Giriş Yap</button>
+</form>
+
+<script>
+    $('#loginForm').submit(function(event) {
+        event.preventDefault(); // Formun normal submit olmasını engelliyoruz
+
+        var email = $('#Email').val();
+        var password = $('#Password').val();
+
+        $.ajax({
+            url: '@Url.Action("Login", "Account")',
+            type: 'POST',
+            data: { email: email, password: password },
+            success: function(response) {
+                if (response.success) {
+                    window.location.href = '@Url.Action("Index", "Home")'; // Giriş başarılı, yönlendiriyoruz
+                } else {
+                    alert('Giriş başarısız. Lütfen bilgilerinizi kontrol edin.');
+                }
+            }
+        });
+    });
+</script>

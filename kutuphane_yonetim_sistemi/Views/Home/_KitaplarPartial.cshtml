@@ -1,0 +1,9 @@
+﻿@model IEnumerable<kutuphane_yonetim_sistemi.Models.Kitap>
+
+<h2>Kitaplar</h2>
+<ul>
+    @foreach (var kitap in Model)
+    {
+        <li>@kitap.Baslik</li>
+    }
+</ul>

@@ -1,0 +1,33 @@
+﻿@model kutuphane_yonetim_sistemi.ViewModels.KitapViewModel
+
+<h1>Yeni Kitap Ekle</h1>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="Kitap.Baslik"></label>
+        <input asp-for="Kitap.Baslik" class="form-control" />
+        <span asp-validation-for="Kitap.Baslik" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Kitap.KategoriId"></label>
+        <select asp-for="Kitap.KategoriId" asp-items="Model.Kategoriler" class="form-control">
+            <option value="">Seçiniz</option>
+        </select>
+        <span asp-validation-for="Kitap.KategoriId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="YazarAdi">Yazar Adı</label>
+        <input type="text" id="YazarAdi" name="YazarAdi" class="form-control" value="@Model.YazarAdi" />
+        <span class="text-danger">@Html.ValidationMessage("YazarAdi")</span>
+    </div>
+
+    <div class="form-group">
+        <label for="YayineviAdi">Yayınevi Adı</label>
+        <input type="text" id="YayineviAdi" name="YayineviAdi" class="form-control" value="@Model.YayineviAdi" />
+        <span class="text-danger">@Html.ValidationMessage("YayineviAdi")</span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Ekle</button>
+</form>

@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "Ana Sayfa";
+}
+
+<h1>Hoş Geldiniz!</h1>
+
+<div class="reklamlar">
+    <p><strong>Kitaplarımızın tamamı sizler için seçildi!</strong></p>
+</div>
+
+@if (User.Identity.IsAuthenticated)  // Kullanıcı giriş yaptıysa göster
+{
+    <h2>Son Eklenen Kitaplar</h2>
+    @await Component.InvokeAsync("YeniEklenenKitaplar")
+}
+else
+{
+    <p>Yeni eklenen kitapları görmek için lütfen giriş yapın veya kayıt olun.</p>
+}
+<script>
+    $(document).ready(function () {
+        $("#yeni-kitaplar").load('/Home/YeniEklenenKitaplar');
+    });
+</script>

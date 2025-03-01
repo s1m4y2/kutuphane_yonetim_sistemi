@@ -1,0 +1,45 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model ProfilViewModel
+
+<h2>Profilim</h2>
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Message"]
+    </div>
+}
+
+<form method="post">
+    <div class="form-group">
+        <label for="KullaniciAdi">Kullanıcı Adı</label>
+        <input type="text" class="form-control" id="KullaniciAdi" name="KullaniciAdi" value="@Model.UserName" required />
+    </div>
+
+    <div class="form-group">
+        <label for="Email">E-posta</label>
+        <input type="email" class="form-control" id="Email" name="Email" value="@Model.Email" required />
+    </div>
+
+    <div class="form-group">
+        <label for="EskiSifre">Eski Şifre</label>
+        <input type="password" class="form-control" id="EskiSifre" name="EskiSifre" />
+    </div>
+
+    <div class="form-group">
+        <label for="Sifre">Yeni Şifre</label>
+        <input type="password" class="form-control" id="Sifre" name="Sifre" />
+    </div>
+
+    <div class="form-group">
+        <label for="SifreOnay">Yeni Şifre Tekrar</label>
+        <input type="password" class="form-control" id="SifreOnay" name="SifreOnay" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Güncelle</button>
+</form>
+
